@@ -10,7 +10,19 @@ size_t	ft_strlen(char *s)
 		i++;
 	return (i);
 }
+char	*ft_strcpy(char *dest, char *src)
+{
+	int	i;
 
+	i = 0;
+	while (src[i] != '\0')
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	dest[i] = '\0';
+	return (dest);
+}
 char	*ft_strchr(char *s, int c)
 {
 	int	i;
@@ -28,32 +40,43 @@ char	*ft_strchr(char *s, int c)
 	}
 	return (0);
 }
+char	*ft_strdup(char *str)
+{
+	char	*dup;
 
-char	*ft_strjoin(char *left_str, char *buff)
+	dup = (char *)malloc((ft_strlen(str) + 1) * sizeof(char));
+	if (dup == NULL)
+	{
+		return (NULL);
+	}
+	ft_strcpy(dup, str);
+	return (dup);
+}
+
+char	*ft_strjoin(char *s1, char *s2)
 {
 	size_t	i;
 	size_t	j;
 	char	*str;
 
-	if (!left_str)
-	{
-		left_str = (char *)malloc(1 * sizeof(char));
-		left_str[0] = '\0';
-	}
-	if (!left_str || !buff)
-		return (NULL);
-	str = malloc(sizeof(char) * ((ft_strlen(left_str) + ft_strlen(buff)) + 1));
-	if (str == NULL)
-		return (NULL);
-	i = -1;
+	i = 0;
 	j = 0;
-	if (left_str)
-		while (left_str[++i] != '\0')
-			str[i] = left_str[i];
-	while (buff[j] != '\0')
-		str[i++] = buff[j++];
-	str[ft_strlen(left_str) + ft_strlen(buff)] = '\0';
-	free(left_str);
+	if (!s2)
+		return (NULL);
+	if (!s1)
+		s1 = ft_strdup("");
+	str = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+	if (!str)
+		return (NULL);
+	while (s1[i])
+	{
+		str[i] = s1[i];
+		i++;
+	}
+	while (s2[j])
+		str[i++] = s2[j++];
+	str[i] = '\0';
+	free(s1);
 	return (str);
 }
 char	*my_get_line(char *left_str)
@@ -82,7 +105,7 @@ char	*my_get_line(char *left_str)
 	str[i] = '\0';
 	return (str);
 }
-char	*ft_new_left_str(char *left_str)
+char	*left_words_from_str(char *left_str)
 {
 	int		i;
 	int		j;
