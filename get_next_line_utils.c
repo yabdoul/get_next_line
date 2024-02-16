@@ -88,7 +88,9 @@ char	*my_get_line(char *left_str)
 	char	*str;
 	i = 0;
 	if (!left_str[i])
-		return (NULL);
+		{
+			return NULL;  
+		} 
 	while (left_str[i] && left_str[i] != '\n')
 		i++;
 	str = (char *)malloc(sizeof(char) * (i + 2));

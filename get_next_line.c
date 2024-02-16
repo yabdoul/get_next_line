@@ -29,22 +29,24 @@ char	*get_next_line(int fd)
 		return (0);
 	left_words = read_line_from_file(fd, left_words);
 	if (!left_words)
-		return (NULL);
+		return (free(line),NULL);
 	line = my_get_line(left_words);
+	
 	left_words = left_words_from_str(left_words);
 	return (line);
 }
 int main()
 {
+	char *test;
 	int fd = open("example.txt",O_RDWR) ;
-	char * test = get_next_line(fd) ;
-	while(test)
+	while(1)
 	{
+		test = get_next_line(fd) ;
+		if(!test)
+		break;
 			printf("%s",test); 
-		test = get_next_line(fd) ; 
 	
-	} 
 	free(test); 
-	system("leaks a.out") ; 
+	} 
 	return 0 ; 
 } 
