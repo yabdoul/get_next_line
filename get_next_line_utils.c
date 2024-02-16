@@ -1,11 +1,14 @@
-#include  "get_next_line_utils.h"
+#include  "get_next_line.h"
 size_t	ft_strlen(char *s)
 {
 	size_t	i;
 
 	i = 0;
 	if (!s)
-		return (0);
+		{
+			free(s) ; 
+			return 0 ; 
+		}
 	while (s[i] != '\0')
 		i++;
 	return (i);
@@ -113,7 +116,7 @@ char	*left_words_from_str(char *left_str)
 
 	i = 0;
 	while (left_str[i] && left_str[i] != '\n')
-		i++;
+		i++; 
 	if (!left_str[i])
 	{
 		free(left_str);
@@ -121,7 +124,10 @@ char	*left_words_from_str(char *left_str)
 	}
 	str = (char *)malloc(sizeof(char) * (ft_strlen(left_str) - i + 1));
 	if (!str)
-		return (NULL);
+		{ 
+			// free(str);
+			return NULL; 
+		}
 	i++;
 	j = 0;
 	while (left_str[i])

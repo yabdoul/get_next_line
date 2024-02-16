@@ -1,4 +1,4 @@
-#include  "get_next_line_utils.h"
+#include  "get_next_line.h"
 char	*read_line_from_file(int fd, char *left_words)
 {
 	char	*buffer;
@@ -34,12 +34,17 @@ char	*get_next_line(int fd)
 	left_words = left_words_from_str(left_words);
 	return (line);
 }
-int main ()
-{ 
-  int fd = open("example.txt",O_RDONLY); 
-char *str; 
-while(str){ 
-str = get_next_line(fd) ; 
-printf("%s",str);  
-}
-}
+int main()
+{
+	int fd = open("example.txt",O_RDWR) ;
+	char * test = get_next_line(fd) ;
+	while(test)
+	{
+			printf("%s",test); 
+		test = get_next_line(fd) ; 
+	
+	} 
+	free(test); 
+	system("leaks a.out") ; 
+	return 0 ; 
+} 
